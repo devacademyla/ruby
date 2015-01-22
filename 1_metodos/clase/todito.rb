@@ -22,5 +22,3 @@ def jugar
   castigo = definir_castigo(dado)
   puts castigo
 end
-
-jugar
