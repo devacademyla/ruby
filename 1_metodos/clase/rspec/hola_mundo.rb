@@ -1,3 +1,3 @@
 def hola_mundo
-  'Hola mundo!'
+  'Hola Mundo!'
 end
