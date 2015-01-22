@@ -9,9 +9,9 @@ def definir_castigo(dado)
   when 2, 6
     'Toma otro'
   when 3
-    'Toma el de mi izquierda'
-  when 4
     'Toma el de mi derecha'
+  when 4
+    'Toma el de mi izquierda'
   else
     'El dado no es válido'
   end
