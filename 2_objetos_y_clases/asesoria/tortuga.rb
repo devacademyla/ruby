@@ -17,24 +17,21 @@ end
 class Cubilete
   def initialize
     @dados = []
-    @resultados = []
   end
 
   def cargar(num_dados)
     @dados = []
-    @resultados = []
     num_dados.times { @dados << Dado.new }
   end
 
   def lanzar
-    (0..@dados.length - 1).each do |i|
-      @dados[i].lanzar
-      @resultados[i] = @dados[i].resultado
-    end
+    @dados.map(&:lanzar)
   end
 
   def resultados
-    @resultados
+    resultados = []
+    @dados.each { |dado| resultados << dado.resultado }
+    resultados
   end
 end
 
