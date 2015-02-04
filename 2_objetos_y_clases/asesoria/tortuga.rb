@@ -1,32 +1,61 @@
-# Class Tortuga
-class Tortuga
-  @tiros = 3
-  attr_accesor :caparazon, :patas
-
-  def lanzar_dados(n)
-    @dados = []
-    n.times { dados << 1 + rand(6) }
+# Class Dado
+class Dado
+  def initialize
+    @valor = 1 + rand(6)
   end
 
-  def caparazon?
-    @caparazon = @dados.include? 6
-  end
-
-  def patas?
-    i = 0
-    @dados.length.times { i += 1 if @dados.include? 1 }
-    i
-  end
-
-  def resultado
-    @patas = 0
-    while @@tiros > 0
-      lanzar_dados(6)
-      caparazon?
-      @patas += patas?
-      @tiros -= 1
-    end
-    return "La Tortuga tiene caparazon y #{@patas} patas" if @caparazon
-    'No tienes Tortuga'
+  def valor
+    @valor
   end
 end
+
+# Class Cubilete
+class Cubilete
+  def initialize(n)
+    @dados = []
+    n.times { dados << Dado.new.valor }
+  end
+
+  def dados
+    @dados
+  end
+end
+
+# Class Jugada
+class Jugada
+  def initialize(caparazon, patas)
+    @caparazon, @patas = caparazon, patas
+    @jugada = []
+    dados = 5 - @caparazon - @patas
+    @dados = Cubilete.new(dados).dados
+    evaluar
+    puts 'Ganaste' if patas == 4
+  end
+
+  def evaluar
+    caparazon if @caparazon == 0
+    patas unless @caparazon == 0
+  end
+
+  def caparazon
+    if @dados.include? 6
+      @caparazon = 1
+      @jugada << 6
+    end
+    @caparazon
+  end
+
+  def patas
+    n = 0
+    @dados.each { |dado| n += 1 if dado == 1 }
+    n.times { @jugada << 1 }
+    @dados.delete(1)
+    @patas += n
+  end
+
+  def jugada
+    @jugada
+  end
+end
+
+Jugada.new(0, 0)
