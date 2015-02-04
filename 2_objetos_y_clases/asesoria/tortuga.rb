@@ -29,9 +29,7 @@ class Cubilete
   end
 
   def resultados
-    resultados = []
-    @dados.each { |dado| resultados << dado.resultado }
-    resultados
+    @dados.map(&:resultado)
   end
 end
 
@@ -82,6 +80,6 @@ class Tortuga
   end
 end
 
-tortuga = Tortuga.new
-tortuga.jugar
-puts tortuga.resultado
+# tortuga = Tortuga.new
+# tortuga.jugar
+# puts tortuga.resultado
