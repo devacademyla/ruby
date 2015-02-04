@@ -1,61 +1,90 @@
 # Class Dado
 class Dado
   def initialize
-    @valor = 1 + rand(6)
+    @resultado = 0
   end
 
-  def valor
-    @valor
+  def lanzar
+    @resultado = 1 + rand(6)
+  end
+
+  def resultado
+    @resultado
   end
 end
 
 # Class Cubilete
 class Cubilete
-  def initialize(n)
+  def initialize
     @dados = []
-    n.times { dados << Dado.new.valor }
+    @resultados = []
   end
 
-  def dados
-    @dados
-  end
-end
-
-# Class Jugada
-class Jugada
-  def initialize(caparazon, patas)
-    @caparazon, @patas = caparazon, patas
-    @jugada = []
-    dados = 5 - @caparazon - @patas
-    @dados = Cubilete.new(dados).dados
-    evaluar
-    puts 'Ganaste' if patas == 4
+  def cargar(num_dados)
+    @dados = []
+    @resultados = []
+    num_dados.times { @dados << Dado.new }
   end
 
-  def evaluar
-    caparazon if @caparazon == 0
-    patas unless @caparazon == 0
-  end
-
-  def caparazon
-    if @dados.include? 6
-      @caparazon = 1
-      @jugada << 6
+  def lanzar
+    (0..@dados.length - 1).each do |i|
+      @dados[i].lanzar
+      @resultados[i] = @dados[i].resultado
     end
-    @caparazon
   end
 
-  def patas
-    n = 0
-    @dados.each { |dado| n += 1 if dado == 1 }
-    n.times { @jugada << 1 }
-    @dados.delete(1)
-    @patas += n
-  end
-
-  def jugada
-    @jugada
+  def resultados
+    @resultados
   end
 end
 
-Jugada.new(0, 0)
+# Class Tortuga
+class Tortuga
+  def initialize
+    @cubilete = Cubilete.new
+    @num_jugadas = 3
+    @num_dados = 5
+    @jugada_final = {
+      caparazon: 0,
+      patas: 0
+    }
+  end
+
+  def evaluar(arr_resultados)
+    arr_resultados.each do |resultado|
+      if @jugada_final[:caparazon] == 1
+        if resultado == 1
+          @jugada_final[:patas] += 1
+          @num_dados -= 1
+        end
+      elsif resultado == 6
+        @jugada_final[:caparazon] = 1
+        @num_dados -= 1
+      end
+    end
+    puts "Dados: #{arr_resultados.inspect}"
+    puts "Jugada: #{@jugada_final.inspect}"
+  end
+
+  def jugar
+    ganar = @jugada_final[:caparazon] == 1 && @jugada_final[:patas] == 4
+    while @num_jugadas > 0 || ganar
+      puts "Lanzar: #{4 - @num_jugadas}"
+      unless @num_dados == 0
+        @cubilete.cargar(@num_dados)
+        @cubilete.lanzar
+        evaluar(@cubilete.resultados)
+      end
+      @num_jugadas -= 1
+    end
+  end
+
+  def resultado
+    "Obtuviste #{@jugada_final[:caparazon]} caparazon y " \
+      "#{@jugada_final[:patas]} patas en #{(3 - @num_jugadas)}/3 jugadas"
+  end
+end
+
+tortuga = Tortuga.new
+tortuga.jugar
+puts tortuga.resultado
