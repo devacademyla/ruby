@@ -41,12 +41,31 @@ RSpec.describe 'Tortuga' do
       @tortuga = Tortuga.new
     end
 
-    it '#new' do
-      resultado = 'Obtuviste 0 caparazon y 0 patas en 0/3 jugadas'
-      expect(@tortuga.resultado).to eq resultado
+    describe '#new' do
+      it 'Tortuga sin caparazon ni patas al crearse' do
+        resultado = 'Obtuviste 0 caparazon y 0 patas en 0/3 jugadas'
+        expect(@tortuga.resultado).to eq resultado
+      end
     end
 
-    it '#evaluar' do
+    describe '#evaluar' do
+      it 'Obtener un caparazon y 0 patas' do
+        resultado = 'Obtuviste 1 caparazon y 0 patas en 0/3 jugadas'
+        @tortuga.evaluar([2, 4, 6, 3, 6])
+        expect(@tortuga.resultado).to eq resultado
+      end
+
+      it 'Obtener un caparazon y 2 patas' do
+        resultado = 'Obtuviste 1 caparazon y 2 patas en 0/3 jugadas'
+        @tortuga.evaluar([6, 1, 1, 3, 5])
+        expect(@tortuga.resultado).to eq resultado
+      end
+
+      it 'Obtener un caparazon y 4 patas' do
+        resultado = 'Obtuviste 1 caparazon y 4 patas en 0/3 jugadas'
+        @tortuga.evaluar([6, 1, 1, 1, 1])
+        expect(@tortuga.resultado).to eq resultado
+      end
     end
   end
 end

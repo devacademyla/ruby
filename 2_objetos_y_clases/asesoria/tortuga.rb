@@ -57,8 +57,6 @@ class Tortuga
         @num_dados -= 1
       end
     end
-    puts "Dados: #{arr_resultados.inspect}"
-    puts "Jugada: #{@jugada_final.inspect}"
   end
 
   def jugar
@@ -72,6 +70,7 @@ class Tortuga
       end
       @num_jugadas -= 1
     end
+    resultado
   end
 
   def resultado
