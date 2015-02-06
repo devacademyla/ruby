@@ -13,17 +13,8 @@ RSpec.describe 'todito' do
       expect(definir_castigo(5)).to eq('Toman todos')
     end
 
-    it '2 o 6 Toma otro' do
-      expect(definir_castigo(2)).to eq('Toma otro')
-      expect(definir_castigo(6)).to eq('Toma otro')
-    end
-
-    it '3: Toma el de mi derecha' do
-      expect(definir_castigo(3)).to eq('Toma el de mi derecha')
-    end
-
-    it '4: Toma el de mi izquierda' do
-      expect(definir_castigo(4)).to eq('Toma el de mi izquierda')
-    end
+    it '2 o 6 Toma otro'
+    it '3: Toma el de mi derecha'
+    it '4: Toma el de mi izquierda'
   end
 end
