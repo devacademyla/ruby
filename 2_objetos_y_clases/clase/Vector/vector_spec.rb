@@ -1,6 +1,6 @@
 require_relative './vector'
 
-RSpec.describe 'vector' do
+RSpec.describe Vector do
   it 'inicia en 0,0 por defecto' do
     vector = Vector.new
     expect(vector.x).to eq 0

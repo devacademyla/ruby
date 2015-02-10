@@ -1,24 +1,10 @@
 # Clase Vector
 class Vector
+  attr_accessor :x, :y
+
   def initialize(params = { x: 0, y: 0 })
     @x = params[:x]
     @y = params[:y]
-  end
-
-  def x
-    @x
-  end
-
-  def x=(x)
-    @x = x
-  end
-
-  def y
-    @y
-  end
-
-  def y=(y)
-    @y = y
   end
 
   def incrementar(vector)
