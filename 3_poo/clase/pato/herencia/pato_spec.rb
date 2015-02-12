@@ -13,14 +13,14 @@ RSpec.describe Pato do
     expect(Pato.new.volar).to eq 'Volando por los cielos'
   end
 
-  describe PatoMallard do
+  context 'Mallard' do
     it 'se muestra en pantalla' do
       pato = PatoMallard.new
       expect(pato.mostrar).to eq 'Soy un Pato Mallard'
     end
   end
 
-  describe PatoBlanco do
+  context 'Blanco' do
     it 'se muestra en pantalla' do
       pato = PatoBlanco.new
       expect(pato.mostrar).to eq 'Soy un Pato Blanco'
