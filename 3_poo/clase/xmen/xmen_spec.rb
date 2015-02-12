@@ -15,5 +15,13 @@ describe Xmen do
       expect(wolverine.poder).to eq 'Regeneración'
     end
   end
+
+  it 'utilizan sus poderes' do
+    xmen = []
+    xmen << Mistique.new
+    xmen << Wolverine.new
+    poderes = xmen.map(&:poder)
+    expect(poderes).to eq ['Cambiar de forma', 'Regeneración']
+  end
   
 end
