@@ -1,11 +1,9 @@
-# class Mamifero
 class Mamifero
   def respirar
     puts 'inhala, exhala'
   end
 end
 
-# class Perro
 class Perro < Mamifero
   def ladrar
     puts 'guau, guau'
