@@ -1,63 +1,51 @@
 class Pato
-  def quack
-    @comportamiento_quack.quack
-  end
-
-  def volar
-    @comportamiento_volar.volar
-  end
-
   def nadar
     'Nadando en el estanque'
   end
 end
 
-class VolarConAlas 
+module VolarConAlas 
   def volar
     'Volando por los cielos'
   end
 end
 
-class NoVuela
+module NoVuela
   def volar
     'No puedo volar'
   end
 end
 
-class Quack
+module Quack
   def quack
     'Quack!'
   end
 end
 
-class Squeek
+module Squeek
   def quack
     'Squeek!'
   end
 end
 
-class NoHaceQuack
+module NoHaceQuack
   def quack
     '...'
   end
 end
 
 class PatoMallard < Pato
-  def initialize
-    @comportamiento_volar = VolarConAlas.new    
-    @comportamiento_quack = Quack.new    
-  end
-
+  include VolarConAlas
+  include Quack
+  
   def mostrar
     'Soy un Pato Mallard'
   end
 end
 
 class PatoBlanco < Pato
-  def initialize
-    @comportamiento_volar = VolarConAlas.new    
-    @comportamiento_quack = Quack.new    
-  end
+  include VolarConAlas
+  include Quack
 
   def mostrar
     'Soy un Pato Blanco'
@@ -65,10 +53,8 @@ class PatoBlanco < Pato
 end
 
 class PatoHule < Pato
-  def initialize
-    @comportamiento_volar = NoVuela.new
-    @comportamiento_quack = Squeek.new
-  end
+  include NoVuela
+  include Squeek
 
   def mostrar
     'Soy un Pato de Hule'
@@ -76,10 +62,8 @@ class PatoHule < Pato
 end
 
 class PatoMadera < Pato
-  def initialize
-    @comportamiento_volar = NoVuela.new
-    @comportamiento_quack = NoHaceQuack.new
-  end
+  include NoVuela
+  include NoHaceQuack
 
   def mostrar
     'Soy un Pato de Madera'
