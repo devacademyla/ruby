@@ -8,7 +8,7 @@ end
 
 # Clase Dispensador
 class Dispensador
-  attr_accesor :monedas, :caramelos
+  attr_accessor :monedas, :caramelos
 
   def initialize
     @monedas = []
