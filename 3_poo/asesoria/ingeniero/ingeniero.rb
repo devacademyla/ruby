@@ -23,11 +23,17 @@ end
 
 # Clase Ingeniero
 class Ingeniero
-  attr_reader :cubilete, :nums, :resultado
+  attr_accessor :nums, :dados
 
   def initialize
     @cubilete = Cubilete.new
     @nums = []
+  end
+
+  def jugar
+    lanzar_dados
+    escoger
+    resultado
   end
 
   def escoger
@@ -35,15 +41,28 @@ class Ingeniero
       'Primer número: ', 'Sumar el número: ', 'Restar el número: ',
       'Multiplicar el número: ', 'Dividir el número: ']
     preguntas.each do |pregunta|
-      print pregunta
-      numero = gets.chomp.to_i
-      @nums << numero
+      numero = nil
+      while numero.nil?
+        puts pregunta
+        numero = gets.chomp.to_i
+        (@dados.include? numero) ? @nums << numero : numero = nil
+      end
     end
-    @resultado = (@nums[0] + @nums[1] - @nums[2]) * @nums[3] / @nums[4]
+    @nums
   end
 
-  def jugar
+  def resultado
+    return nil if @nums.empty?
+    @resultado = @nums[0] + @nums[1]
+    @resultado -= @nums[2]
+    @resultado *= @nums[3]
+    @resultado /= @nums[4]
+  end
+
+  def lanzar_dados
     @cubilete.cargar(5)
-    escoger
+    @dados = @cubilete.resultados
+    puts "Obtuviste: #{@dados}"
+    @dados
   end
 end
