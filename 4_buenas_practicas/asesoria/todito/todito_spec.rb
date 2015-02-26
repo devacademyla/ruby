@@ -55,34 +55,35 @@ RSpec.describe Juego do
   end
   describe '#aplicar_castigo' do
     it 'castigo: \'Toman todos\'' do
-      expect{@juego.aplicar_castigo('Toman todos', 0)}
-        .to change{@juego.jugadores[0].shots}.from(0).to(1)
+      expect { @juego.aplicar_castigo('Toman todos', 0) }
+        .to change { @juego.jugadores[0].shots }.from(0).to(1)
     end
     it 'castigo: \'Toma el de mi derecha\'' do
-      expect{@juego.aplicar_castigo('Toma el de mi derecha', 0)}
-        .to change{@juego.jugadores[1].shots}.from(0).to(1)
+      expect { @juego.aplicar_castigo('Toma el de mi derecha', 0) }
+        .to change { @juego.jugadores[1].shots }.from(0).to(1)
     end
     it 'castigo: \'Toma el de mi izquierda\'' do
-      expect{@juego.aplicar_castigo('Toma el de mi izquierda', 0)}
-        .to change{@juego.jugadores[2].shots}.from(0).to(1)
+      expect { @juego.aplicar_castigo('Toma el de mi izquierda', 0) }
+        .to change { @juego.jugadores[2].shots }.from(0).to(1)
     end
   end
   describe '#quitar_jugadores' do
     it 'Un jugador ebrio' do
       10.times { @juego.jugadores[0].tomar_shot }
-      expect{@juego.quitar_jugadores}.to change{@juego.jugadores.size}
+      expect { @juego.quitar_jugadores }.to change { @juego.jugadores.size }
         .from(3).to(2)
     end
     it 'Más de un jugador ebrio' do
       10.times { @juego.jugadores[0].tomar_shot }
       10.times { @juego.jugadores[1].tomar_shot }
-      expect{@juego.quitar_jugadores}.to change{@juego.jugadores.size}
+      expect { @juego.quitar_jugadores }.to change { @juego.jugadores.size }
         .from(3).to(1)
     end
   end
   describe '#jugar' do
-    it 'Debe quedar un jugador' do
-      expect{@juego.jugar}.to change{@juego.jugadores.size}.to eq 1
+    it 'Debe quedar menos de un jugador o un jugador' do
+      @juego.jugar
+      expect(@juego.jugadores.size).to be <= 1
     end
   end
 end
